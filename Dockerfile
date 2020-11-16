@@ -14,5 +14,6 @@ RUN apt-get install -y python3-pip
 
 RUN git clone https://github.com/wikiti/pandoc-book-template.git
 RUN pip3 install git+https://github.com/twardoch/mkdocs-combine.git
-
-
+RUN apt-get install -y ttf-mscorefonts-installer texlive-fonts-extra  
+RUN apt-get install -y fontconfig
+RUN apt-get install -y fonts-texgyre

@@ -24,7 +24,16 @@ sudo docker run -v=$PWD:/data/ mkdocs2book:latest /bin/bash -c "\
   cd /data/documentation ; \
   mkdocs build ; \
   mkdocscombine -o /data/book.pd; \
-  pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/book.pdf /data/book.pd --pdf-engine=xelatex --listings -H /data/listings-setup.tex --template=/pandoc-book-template/templates/pdf.latex -V geometry:a4paper -V geometry:\"top=2cm, bottom=1.5cm, left=0.9cm, right=0.9cm\" -V mainfont=\"DejaVu Sans\"  -V monofont=\"DejaVu Sans Mono\" ; \
-  pandoc --toc -f markdown+grid_tables -t epub -o /data/book.epub /data/book.pd ; \
+  pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/book.pdf /data/book.pd --pdf-engine=xelatex \
+    --listings -H /data/listings-setup.tex \
+    --template=/pandoc-book-template/templates/pdf.latex \
+    -V papersize=a4 \
+    -V geometry:\"top=2cm, bottom=1.5cm, left=0.9cm, right=0.9cm\" \
+    -V mainfont=\"Noto Serif\" \
+    -V monofont=\"DejaVuSansMono\" \
+    -V sansfont=\"DejaVuSans\" \
+    -V romanfont=\"DejaVu Sans Mono\" ; \
+  pandoc --toc -f markdown+grid_tables --template /pandoc-book-template/templates/epub.html -t epub -o /data/book.epub /data/book.pd ; \
   pandoc --toc -f markdown+grid_tables -t html -o /data/book.html /data/book.pd"
+  
 ```
