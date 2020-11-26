@@ -40,6 +40,7 @@ sudo docker run -v=$PWD:/data/ mkdocs2book:latest /bin/bash -c "\
     -V geometry:\"top=2cm, bottom=2.5cm, left=1.9cm, right=1.9cm\" \
     -V documentclass=\"book\" \
     -V fontsize=12 \
+    -V toc-depth=2 \
     -V mainfont=\"DejaVuSerif\" \
     -V monofont=\"DejaVuSansMono\" ; \
   pandoc --toc -f markdown+grid_tables --template /data/pandoc-book-template/templates/epub.html -t epub -o /data/book.epub /data/book.pd ; "
