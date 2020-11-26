@@ -17,23 +17,32 @@ Convert documentation in mkdocs format to a readable book in different formats (
 
 ```
 sudo docker build -f Dockerfile -t mkdocs2book:latest .
-
+git clone https://github.com/ebadi/mkdocs-combine.git
+git clone https://github.com/ebadi/pandoc-book-template.git
 git clone https://github.com/carla-simulator/carla.git documentation
 
+
+sudo rm book.pd book.pdf book.epub;
+
 sudo docker run -v=$PWD:/data/ mkdocs2book:latest /bin/bash -c "\
+  rm -rf /data/mkdocs-combine/mkdocs_combine.egg-info ; \
+  pip3 install -e  /data/mkdocs-combine ; \
   cd /data/documentation ; \
   mkdocs build ; \
-  mkdocscombine -o /data/book.pd; \
+  mkdocscombine --admonitions-md -o /data/book.pd; \
+  sed -i 's/---//g' /data/book.pd ; \
+  sed '/TOREMOVE/d' -i /data/book.pd ; \
   pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/book.pdf /data/book.pd --pdf-engine=xelatex \
     --listings -H /data/listings-setup.tex \
-    --template=/pandoc-book-template/templates/pdf.latex \
+    --template=/data/pandoc-book-template/templates/pdf.latex \
+    --toc-depth=3 \
     -V papersize=a4 \
-    -V geometry:\"top=2cm, bottom=1.5cm, left=0.9cm, right=0.9cm\" \
-    -V mainfont=\"Noto Serif\" \
-    -V monofont=\"DejaVuSansMono\" \
-    -V sansfont=\"DejaVuSans\" \
-    -V romanfont=\"DejaVu Sans Mono\" ; \
-  pandoc --toc -f markdown+grid_tables --template /pandoc-book-template/templates/epub.html -t epub -o /data/book.epub /data/book.pd ; \
-  pandoc --toc -f markdown+grid_tables -t html -o /data/book.html /data/book.pd"
-  
+    -V geometry:\"top=2cm, bottom=2.5cm, left=1.9cm, right=1.9cm\" \
+    -V documentclass=\"book\" \
+    -V fontsize=12 \
+    -V mainfont=\"DejaVuSerif\" \
+    -V monofont=\"DejaVuSansMono\" ; \
+  pandoc --toc -f markdown+grid_tables --template /data/pandoc-book-template/templates/epub.html -t epub -o /data/book.epub /data/book.pd ; "
+
 ```
+
