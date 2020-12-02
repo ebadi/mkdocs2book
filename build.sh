@@ -24,7 +24,9 @@ mkdocscombine --admonitions-md -o /data/$1.pd
 sed -i 's/---//g' /data/$1.pd
 sed '/TOREMOVE/d' -i /data/$1.pd
 sed 's/&#9989;/Yes/' -i /data/$1.pd
- sed 's/&#10060;/No/' -i /data/$1.pd
+sed 's/&#10060;/No/' -i /data/$1.pd
+sed '/<div class="build-buttons">/,/<\/div>/d' -i /data/$1.pd
+
 pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/$1.pdf /data/$1.pd --pdf-engine=xelatex \
     --listings -H /data/listings-setup.tex \
     --template=/data/pandoc-book-template/templates/pdf.latex \
