@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-
+cd /data/
 
 if [ ! -d "mkdocs-combine" ] ; then
-    git clone "https://github.com/ebadi/mkdocs-combine.git" 
+    git clone https://github.com/ebadi/mkdocs-combine.git
 fi
 
 if [ ! -d "pandoc-book-template" ] ; then
-    git clone "https://github.com/ebadi/pandoc-book-template.git" "mkdocs-combine"
+    git clone https://github.com/ebadi/pandoc-book-template.git
 fi
 
 if [ ! -d $1 ] ; then
