@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+
+
 if [ ! -d "mkdocs-combine" ] ; then
-    git clone "https://github.com/ebadi/mkdocs-combine.git" "mkdocs-combine"
+    git clone "https://github.com/ebadi/mkdocs-combine.git" 
 fi
 
 if [ ! -d "pandoc-book-template" ] ; then
@@ -9,7 +11,7 @@ if [ ! -d "pandoc-book-template" ] ; then
 fi
 
 if [ ! -d $1 ] ; then
-    echo "Documentation folder (./documentation) is not found in the current directory"
+    echo "First argument, documentation folder is not found in the current directory"
 fi
 
 
@@ -17,9 +19,12 @@ fi
 rm -rf /data/mkdocs-combine/mkdocs_combine.egg-info
 pip3 install -e  /data/mkdocs-combine
 cd /data/$1
+mkdocs build
 mkdocscombine --admonitions-md -o /data/$1.pd
 sed -i 's/---//g' /data/$1.pd
 sed '/TOREMOVE/d' -i /data/$1.pd
+sed 's/&#9989;/Yes/' -i /data/$1.pd
+ sed 's/&#10060;/No/' -i /data/$1.pd
 pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/$1.pdf /data/$1.pd --pdf-engine=xelatex \
     --listings -H /data/listings-setup.tex \
     --template=/data/pandoc-book-template/templates/pdf.latex \
