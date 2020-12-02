@@ -14,5 +14,6 @@ RUN apt-get install -y ttf-mscorefonts-installer texlive-fonts-extra
 RUN apt-get install -y fontconfig
 RUN apt-get install -y fonts-texgyre
 RUN pip3 install mkdocs
+RUN apt-get install -y librsvg2-bin
 
 
