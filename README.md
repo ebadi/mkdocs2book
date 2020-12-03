@@ -29,3 +29,8 @@ sudo docker run -v=$PWD:/data/ mkdocs2book:latest /data/build.sh scenario_runner
 
 ```
 
+
+[Carla Simulator documentation in PDF format](carla.pdf)
+[Scenario Runner documentation in PDF format](scenario_runner.pdf)
+
+(click on raw to download)
