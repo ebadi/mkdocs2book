@@ -26,17 +26,20 @@ sed '/TOREMOVE/d' -i /data/$1.pd
 sed 's/&#9989;/Yes/' -i /data/$1.pd
 sed 's/&#10060;/No/' -i /data/$1.pd
 sed '/<div class="build-buttons">/,/<\/div>/d' -i /data/$1.pd
+sed '/<button/d' -i /data/$1.pd
 
 pandoc --number-sections --toc -f markdown+grid_tables+table_captions -o /data/$1.pdf /data/$1.pd --pdf-engine=xelatex \
     --listings -H /data/listings-setup.tex \
     --template=/data/pandoc-book-template/templates/pdf.latex \
-    --toc-depth=3 \
+    --toc-depth=2 \
     -V papersize=a4 \
-    -V geometry:"top=2cm, bottom=1cm, left=1.5cm, right=1.5cm" \
-    -V documentclass="book" \
+    -V geometry:"top=2cm, bottom=2cm, left=1.5cm, right=1.5cm" \
+    -V documentclass="article" \
     -V fontsize=12 \
     -V toc-depth=2
-    
+
+#documentclass="book"
+
 pandoc --toc -f markdown+grid_tables --template /data/pandoc-book-template/templates/epub.html -t epub -o /data/$1.epub /data/$1.pd
 
 

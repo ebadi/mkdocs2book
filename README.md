@@ -23,7 +23,6 @@ sudo docker build -f Dockerfile -t mkdocs2book:latest .
 git clone https://github.com/ebadi/carla.git
 sudo docker run -v=$PWD:/data/ mkdocs2book:latest /data/build.sh carla
 
-
 git clone https://github.com/ebadi/scenario_runner.git
 sudo docker run -v=$PWD:/data/ mkdocs2book:latest /data/build.sh scenario_runner
 
